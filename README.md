@@ -1,14 +1,13 @@
 ### MOBILE SIGNAL API
-Simplified API used to get 
+Simplified API used to get mobile signals disponibility (2G, 3G, 4G) given a French requested address.
 
 ### Stack
 - MongoDB
 - Python Flask
 
 ### Dependencies
-- python3.10
-- requirements.txt for python
-- mongodb
+- python3.10.12 : to install python, follow the official guide: https://www.python.org/downloads/
+- mongodb: to install mongodb, follow the official mongodb tutorial https://www.mongodb.com/docs/manual/administration/install-community/ according to your OS
 
 ### Virtual environment setup:
 Create venv with the following command:
@@ -33,14 +32,18 @@ python3 -m create_database.py
 ```
 
 ### Launch the API:
-python3 -m launch_signal_api.py
+With the venv activated and the database created, launch the api with the following command:
+```
+python3 -m launch_signal_api
+```
 
-### To test the API, go to the following address:
-http://localhost:5000/?q=address
+### Test the API
+To test the API, go to the following address:
 
-Where address is the request and should be a french address.
-The request format is much like the one used on https://adresse.data.gouv.fr/api-doc/adresse, since it passes by this api to filter the inserted address.
+http://localhost:5000/?q=requested_address
 
+Where requested_address is the request and should be a french address.
+The request format is much like the one used on https://adresse.data.gouv.fr/api-doc/adresse, since the API used in this project passes by the 'adresse api' to filter the inserted address.
 
 ### Requests examples:
 #### > EX 1: A precise request
@@ -179,6 +182,7 @@ Response:
 #### > EX 3: An invalid request
 
 Request: http://localhost:5000/?q=iadsjasdipa
+
 Response:
 ``` json
 {

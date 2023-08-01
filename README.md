@@ -1,6 +1,8 @@
 ### MOBILE SIGNAL API
 Simplified API used to get mobile signals disponibility (2G, 3G, 4G) given a French requested address.
 
+The precision of the API is city-level.
+
 ### Stack
 - MongoDB
 - Python Flask

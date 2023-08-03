@@ -3,6 +3,11 @@ Simplified API used to get mobile signals disponibility (2G, 3G, 4G) given a Fre
 
 The precision of the API is city-level.
 
+### Docker integration
+It's possible to run this application in a Docker container to avoid having to install all its dependencies on your computer.
+
+Swith to the "docker" branch on this repository to view it. 
+
 ### Stack
 - MongoDB
 - Python Flask

@@ -7,7 +7,7 @@ class CreateLogger:
         """CreatLogger class initialization."""
         self._logger = logging.getLogger(app_name)
         self._logger.setLevel(logger_level)
-        handler = logging.FileHandler(f'logs/{app_name}.log')
+        handler = logging.FileHandler(f'{app_name}.log')
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         handler.setFormatter(formatter)
         self._logger.addHandler(handler)

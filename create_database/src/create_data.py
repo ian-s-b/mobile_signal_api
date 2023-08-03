@@ -1,7 +1,7 @@
-"""Script used to create the signal_api database."""
+"""Script used to create the create data for the mongodb."""
 from pathlib import Path
-from pymongo import MongoClient, ASCENDING
 from logging import ERROR
+import json
 from utils.csv_parser import SitesMobileCsvConverter
 from utils.create_logger import CreateLogger
 
@@ -24,9 +24,6 @@ output_file = csv_converter.save_adresse_request_csv(input_file)
 # Convert the response into a list that can be injectect into the database
 signal_list = csv_converter.convert_csv_to_dict(output_file)
 
-# Database initialization and data injection
-client = MongoClient("mongodb://localhost:27017/")
-database = client.sites_mobiles
-collection = database.city_signal
-collection.create_index([('city_code', ASCENDING)], unique=True)
-collection.insert_many(signal_list)
+# Save signal_list to a json file
+with open("db_data.json", "w", encoding="utf-8") as json_file:
+    json.dump(signal_list, json_file)

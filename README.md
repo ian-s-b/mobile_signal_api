@@ -1,43 +1,40 @@
-### MOBILE SIGNAL API
+### MOBILE SIGNAL API - DOCKER INTEGRATION
 Simplified API used to get mobile signals disponibility (2G, 3G, 4G) given a French requested address.
 
 The precision of the API is city-level.
 
-### Stack
+### Application Stack
 - MongoDB
 - Python Flask
 
-### Dependencies
-- python3.10.12 : to install python, follow the official guide: https://www.python.org/downloads/
-- mongodb: to install mongodb, follow the official mongodb tutorial https://www.mongodb.com/docs/manual/administration/install-community/ according to your OS
+### Docker integration
+It's possible to run this application in a Docker container to avoid having to install all its dependencies on your computer.
 
-### Virtual environment setup:
-Create venv with the following command:
-```
-virtualenv venv
-```
+The docker-compose.yml file will create the following services:
+- db: the mongo database (non exposed) used with the signal api
+- create_db: a service that runs a python script once to send data to the database. At the end of the script te service is stopped
+- signal_api: the main api container
 
-Activate the venv:
+To lanch the services, run the following command next to the docker-compose.yml file:
 ```
-source venv/bin/activate
+docker-compose up
 ```
 
-Install the requirements into the venv:
+The first time you run the docker compose, you will see the following message on your terminal:
 ```
-pip3 install -r requirements.txt
+mobile_signal_api-create_db-1 exited with code 0
 ```
+Meaning that the create_db script send the data correctly to the database and the api is ready to be used.
 
-### Database initialization
-Launch the script create_database.py
+If you stop all the services and restart them with 
 ```
-python3 -m create_database.py
+docker-compose up
 ```
-
-### Launch the API:
-With the venv activated and the database created, launch the api with the following command:
+You will encounter the following message:
 ```
-python3 -m launch_signal_api
+mobile_signal_api-create_db-1 exited with code 1
 ```
+This is normal because the script was not able to send the data again to the database since it was already sent before.
 
 ### Test the API
 To test the API, go to the following address:

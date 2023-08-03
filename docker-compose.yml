@@ -1,0 +1,33 @@
+version: '3'
+
+networks:
+  net:
+    driver: bridge
+
+volumes:
+  mongo-data:
+
+services:
+  db:
+    image: mongo:latest
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - net
+
+  create_db:
+    build: ./create_database
+    networks:
+      - net
+    depends_on:
+      - db
+
+  signal_api:
+    build: ./signal_api
+    command: python3 -m flask run --host=0.0.0.0
+    networks:
+      - net
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db

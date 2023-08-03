@@ -13,7 +13,7 @@ logger = CreateLogger("signal_api", ERROR).get_logger()
 # API initialization and database connection
 app = Flask(__name__)
 
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/'
+app.config['MONGO_URI'] = 'mongodb://db:27017/'
 mongo_client = MongoClient(app.config['MONGO_URI'])
 database = mongo_client.sites_mobiles
 collection = database.city_signal
@@ -58,3 +58,6 @@ class SignalDataResource(Resource):
 
 # Make the resources available on the API on the endpoint '/'
 api.add_resource(SignalDataResource, '/')
+
+if __name__ == '__main__':
+    app.run(debug=True)
